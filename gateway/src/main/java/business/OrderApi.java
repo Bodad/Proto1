@@ -7,20 +7,21 @@ import io.quarkus.mongodb.panache.PanacheQuery;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.jboss.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 @Path("/order")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class OrderApi {
 
-    private static final Logger LOG = Logger.getLogger(OrderApi.class.getName());
+    private static final Logger LOG = Logger.getLogger(OrderApi.class);
 //    @Inject
 //    @Channel("order-create")
 //    Emitter<Order> orderEmitter;
