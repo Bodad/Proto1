@@ -9,5 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>gateway</module>
+        <module>order-service</module>
+    </modules>
+
 
 </project>

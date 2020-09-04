@@ -17,4 +17,13 @@ public class Order extends PanacheMongoEntity {
         public int quantity;
         public int price;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "name='" + name + '\'' +
+                ", createdDate=" + createdDate +
+                ", orderLineItems=" + orderLineItems +
+                '}';
+    }
 }
