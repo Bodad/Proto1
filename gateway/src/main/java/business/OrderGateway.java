@@ -2,12 +2,10 @@ package business;
 
 import data.Order;
 import data.Product;
-import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.jboss.logging.Logger;
-import rest.OrderApi;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -16,8 +14,8 @@ import java.util.List;
 
 @ApplicationScoped
 @Traced
-public class OrderService {
-    private static final Logger LOG = Logger.getLogger(OrderService.class);
+public class OrderGateway {
+    private static final Logger LOG = Logger.getLogger(OrderGateway.class);
 
     @Inject
     @Channel("orders")

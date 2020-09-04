@@ -10,8 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>gateway</module>
-        <module>order-service</module>
+        <module>Gateway</module>
+        <module>OrderMicroservice</module>
     </modules>
 
 

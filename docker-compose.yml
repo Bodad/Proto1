@@ -28,7 +28,6 @@ services:
     ports:
       - "9090:9090"
 
-
   zookeeper:
     image: strimzi/kafka:0.11.3-kafka-2.1.0
     command: [
@@ -66,8 +65,8 @@ services:
     ports:
       - "8080:8080"
 
-  orders-microservice:
-    image: orders-microservice
+  order-microservice:
+    image: order-microservice
     depends_on:
       - kafka
       - mongo
