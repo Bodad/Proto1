@@ -82,9 +82,9 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
   gateway:
-    image: gateway
+    image: gateway:jvm
     deploy:
-      replicas: 1
+      replicas: 2
     depends_on:
       - kafka
       - mongo
@@ -94,9 +94,9 @@ services:
       - "8080:8080"
 
   order-microservice:
-    image: order-microservice
+    image: order-microservice:jvm
     deploy:
-      replicas: 1
+      replicas: 3
     depends_on:
       - kafka
       - mongo
