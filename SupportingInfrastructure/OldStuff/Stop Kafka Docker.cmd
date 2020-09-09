@@ -1,0 +1,1 @@
+docker-compose -f "Kafka Docker\Dockerfile.yaml" down

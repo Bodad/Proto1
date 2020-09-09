@@ -1,1 +1,0 @@
-docker-compose --project-name proto1_kafka -f "Kafka Docker\Dockerfile.yaml" up -d

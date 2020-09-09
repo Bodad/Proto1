@@ -1,0 +1,44 @@
+Web UI
+    Proto1: http://localhost:8080/order/getOrder
+    Prometheus: http://localhost:9090/graph
+    Jaeger: http://localhost:16686/search
+    Swagger:
+    SwarmPit: http://localhost:888
+        username: Admin
+        Password: BodadAdmin
+
+
+
+Local
+    deploy - docker-compose up -d
+    tail logs - docker logs protype_1_graylog_1 --follow
+    see - docker-compose ps
+    stop - docker-compose down
+
+Swarm
+    deploy - docker stack deploy --compose-file docker-compose-swarm.yml proto1
+    see - docker stack services proto1
+    tail - docker service logs proto1_graylog --follow
+    stop - docker stack rm proto1
+    scale a service - docker service scale proto1_order-microservice=3
+
+
+Kubernetes
+    deploy - docker stack deploy --compose-file docker-compose-swarm.yml --orchestrator kubernetes proto1
+    stop - docker stack rm --orchestrator kubernetes proto1
+    see stacks - docker stack ls --orchestrator=all
+    see services in stack -
+
+Miscellaneous
+    Can't run GrayLog in kubernetes as it has both TCP and UPD endpoints
+
+
+Kubernetes notes
+    kubectl proxy to start UI proxy
+    UI - http://:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+    UI Token - eyJhbGciOiJSUzI1NiIsImtpZCI6IlFzNkFsLTd1ekY4VHRlalVHcHp5SVBnOHE0NUlNN3FaTUtyQTZ2SHFFZGsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLTVqZm16Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI5YzgxNGFiMS1kNzc2LTRkMjAtYWIzNS00YWE5MDY4NTVlZWIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGVmYXVsdCJ9.0poMrJ1JKzKNBRo24vRnM4Fetz3KX5Acj98W7_vzxOwD1fHsh6NO5BSguw9Q6VnRHGGFNsTl263j5P84oWMD6PvpotARDyPU9PPii6aFMfkk0WZ0RTXEA6YXl-c0vdq7Y11PObM92egsC5GQWlpi35B5WMyRC6474ooF8uRlC4nM9KmiepwOmz2xYxn7gvOTRGSwtYoMQ7L7jpsDGMtKcF-pPHFmgA07NAgzumKQ6BqL3cACc-hAjJNFrrcQ6j1ZXhAhK-qMv-R-IjhobPwyUA2HjRJaGVGElYerc8sW0OsmH0G2d8W74ZYBWh0WfFt63Nngrn5QVbP4XoRW4gdwdg
+
+SwarmPit
+    To install / deploy - docker run -it --rm --name swarmpit-installer --volume /var/run/docker.sock:/var/run/docker.sock swarmpit/install:1.9
+    Downloaded at workspace\Quarkus\SwarmPit as well.  Can run from there with docker stack deploy -c docker-compose.yml swarmpit
+

@@ -1,1 +1,0 @@
-docker run --name proto1_mongo --network proto1 -d --rm -p 27017:27017 mongo:4.0
