@@ -1,4 +1,4 @@
-package data;
+package Data;
 
 import io.quarkus.mongodb.panache.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;

@@ -1,7 +1,7 @@
 package rest;
 
+import Data.Order;
 import business.OrderGateway;
-import data.Order;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 
 import javax.inject.Inject;

@@ -1,9 +1,10 @@
 package org.example;
 
-import io.smallrye.reactive.messaging.annotations.Broadcast;
+
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
+
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -14,6 +15,8 @@ public class OrderMicroservice {
 
     @Incoming("orders")
     public void processOrder(String orderString){
+//        Order.persistOrUpdate(order);
+
         LOG.info("I am processing " + orderString);
     }
 }

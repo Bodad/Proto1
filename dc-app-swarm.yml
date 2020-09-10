@@ -6,14 +6,14 @@ networks:
 
 services:
   gateway:
-    image: gateway:native
+    image: gateway:jvm
     deploy:
       replicas: 1
     ports:
       - "8080:8080"
 
   order-microservice:
-    image: order-microservice:native
+    image: order-microservice:jvm
     deploy:
       replicas: 1
 

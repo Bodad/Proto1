@@ -1,7 +1,7 @@
 package business;
 
-import data.Order;
-import data.Product;
+import Data.Order;
+import Data.Product;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
@@ -19,15 +19,14 @@ public class OrderGateway {
 
     @Inject
     @Channel("orders")
-    Emitter<String> orderEmitter;
+    Emitter<Order> orderEmitter;
 
     public void placeOrder(Order order) {
-        Order.persistOrUpdate(order);
-        orderEmitter.send(order.toString());
+        orderEmitter.send(order);
     }
 
     public Order getOrder() {
-        LOG.info("getting order");
+        LOG.info("getting order now");
         if (Order.count() == 0){
             Order newOrder = new Order();
             newOrder.name = "First Order";
@@ -45,7 +44,7 @@ public class OrderGateway {
         }
 
         Order order = Order.findAll().firstResult();
-        orderEmitter.send(order.toString());
+        orderEmitter.send(order);
 
         return order;
     }
