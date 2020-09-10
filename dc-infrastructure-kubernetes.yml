@@ -1,0 +1,84 @@
+version: '3'
+networks:
+  default:
+    external:
+      name: proto1_swarm
+
+services:
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9001:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+      JVM_OPTS: "-Xms32M -Xmx64M"
+      SERVER_SERVLET_CONTEXTPATH: "/"
+
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.2
+    ports:
+      - "9200:9200"
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+
+#  graylog:
+#    image: graylog/graylog:3.3
+#    ports:
+#      - "9000:9000"
+#      - "12201:12201/udp"
+#      - "1514:1514"
+#    environment:
+#      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
+#    depends_on:
+#      - elasticsearch
+#      - mongo
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+
+  mongo:
+   image: mongo:4.0
+   ports:
+     - "27017:27017"
+
+  prometheus:
+    image: bodad/prometheus:latest
+    build:
+      context: SupportingInfrastructure/Prometheus
+      dockerfile: Dockerfile.yml
+    ports:
+      - "9090:9090"
+
+  zookeeper:
+    image: strimzi/kafka:0.11.3-kafka-2.1.0
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+
+  kafka:
+    image: strimzi/kafka:0.11.3-kafka-2.1.0
+    command: [
+      "sh", "-c",
+      "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+

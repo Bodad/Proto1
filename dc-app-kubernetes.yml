@@ -1,0 +1,21 @@
+version: '3'
+networks:
+  default:
+    external:
+      name: proto1_swarm
+
+services:
+  gateway:
+    image: gateway:native
+    deploy:
+      replicas: 1
+    ports:
+      - "8080:8080"
+
+  order-microservice:
+    image: order-microservice:native
+    deploy:
+      replicas: 1
+
+
+
