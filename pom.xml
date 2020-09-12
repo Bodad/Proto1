@@ -23,7 +23,6 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     </properties>
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -37,9 +36,11 @@
     </dependencyManagement>
 
     <modules>
-        <module>Gateway</module>
-        <module>OrderMicroservice</module>
-        <module>Common</module>
+        <module>common</module>
+        <module>gateway</module>
+        <module>order-microservice</module>
+        <module>product-microservice</module>
+        <module>dueout-microservice</module>
     </modules>
 
 
