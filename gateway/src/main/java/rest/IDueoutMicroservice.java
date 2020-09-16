@@ -1,6 +1,7 @@
 package rest;
 
 import Data.Dueout;
+import Data.Order;
 import Data.Product;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
@@ -13,20 +14,18 @@ import java.util.List;
 
 @Path("/")
 @RegisterRestClient(configKey="dueout-microservice-api")
+@Produces("application/json")
 public interface IDueoutMicroservice {
 
     @POST
     @Path("/createDueout")
-    @Produces("application/json")
-    Dueout createDueout(Dueout dueout);
+    Dueout createDueout(Order order);
 
     @GET
     @Path("/getDueout")
-    @Produces("application/json")
     Dueout getDueout(@QueryParam("dueoutId") String dueoutId);
 
     @GET
     @Path("/getDueouts")
-    @Produces("application/json")
     List<Dueout> getDueouts();
 }

@@ -2,12 +2,15 @@ package Data;
 
 import io.quarkus.mongodb.panache.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@MongoEntity
 public class Order{
+    public ObjectId id;
     public String name;
     public Date createdDate;
     public List<LineItem> orderLineItems = new ArrayList<>();
@@ -16,6 +19,7 @@ public class Order{
         public Product product;
         public int quantity;
         public int price;
+        public Dueout dueout;
     }
 
     @Override

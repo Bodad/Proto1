@@ -1,6 +1,9 @@
 package business;
 
 import Data.Product;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
@@ -12,6 +15,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Traced
+@Timed
 public class ProductGateway {
     private static final Logger LOG = Logger.getLogger(ProductGateway.class);
 
@@ -19,16 +23,22 @@ public class ProductGateway {
     @RestClient
     IProductMicroservice productMicroservice;
 
-//    @Inject
+    //    @Inject
 //    @Channel("products")
 //    Emitter<String> orderEmitter;
 
     public Product getProduct(String productId) {
+        LOG.info("Getting product info for product Id: " + productId);
         return productMicroservice.getProduct(productId);
     }
 
     public List<Product> getProducts() {
+        LOG.info("Getting product info for all products");
         return productMicroservice.getProducts();
     }
 
+    public Product getProductByName(String productName) {
+        LOG.info("Getting product info by name: " + productName);
+        return productMicroservice.getProductByName(productName);
+    }
 }

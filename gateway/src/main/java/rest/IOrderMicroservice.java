@@ -13,21 +13,22 @@ import java.util.List;
 
 @Path("/")
 @RegisterRestClient(configKey="order-microservice-api")
+@Produces("application/json")
 public interface IOrderMicroservice {
 
     @POST
     @Path("/createOrder")
-    @Produces("application/json")
     Order createOrder(Order order);
 
     @GET
     @Path("/getOrder")
-    @Produces("application/json")
     Order getOrder(@QueryParam("orderId") String orderId);
 
     @GET
     @Path("/getOrders")
-    @Produces("application/json")
     List<Order> getOrders();
 
+    @GET
+    @Path("/createNewOrder")
+    Order createNewOrder();
 }

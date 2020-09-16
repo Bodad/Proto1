@@ -21,19 +21,8 @@ public class OrderGatewayApi {
 
     @GET
     @Path("placeOrder")
-    public void placeOrder(@QueryParam("productName") String productName) {
-        Order order = new Order();
-        order.name = "Order for " + productName;
-        Order.LineItem lineItem = new Order.LineItem();
-
-        Product product = new Product();
-        product.name = productName;
-
-        lineItem.product = product;
-        lineItem.quantity = 1;
-
-        order.orderLineItems.add(lineItem);
-        orderGateway.placeOrder(order);
+    public Order placeOrder(@QueryParam("productName") String productName) {
+        return orderGateway.placeOrder(productName);
     }
 
     @GET
@@ -44,7 +33,6 @@ public class OrderGatewayApi {
 
     @GET
     @Path("getOrders")
-    @Counted(name = "performedChecks", description = "How many primality checks have been performed.")
     public List<Order> getOrders() {
         return orderGateway.getOrders();
     }

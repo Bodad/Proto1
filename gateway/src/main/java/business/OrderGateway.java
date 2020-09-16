@@ -3,6 +3,9 @@ package business;
 import Data.Dueout;
 import Data.Order;
 import Data.Product;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Traced
+@Timed
 public class OrderGateway {
     private static final Logger LOG = Logger.getLogger(OrderGateway.class);
 
@@ -33,20 +37,18 @@ public class OrderGateway {
 //    @Channel("orders")
 //    Emitter<String> orderEmitter;
 
-    public void placeOrder(Order order) {
-        Product product = productGateway.getProduct(order.orderLineItems.get(0).product.name);
-        orderMicroservice.createOrder(order);
-
-        Dueout dueout = new Dueout();
-        dueout.order = order;
-        dueout.lineItem = order.orderLineItems.get(0);
-        dueout.product = product;
-        dueoutGateway.createDueout(dueout);
-
+    public Order placeOrder(String productName) {
+        LOG.info("I'm placing an order");
+        Order order = orderMicroservice.createNewOrder();
+        order.orderLineItems.add(new Order.LineItem());
+        order.orderLineItems.get(0).product = productGateway.getProductByName(productName);
+        order.orderLineItems.get(0).dueout = dueoutGateway.createDueout(order);
+        return order;
 //        orderEmitter.send(order.toString());
     }
 
     public Order getOrder(String orderId) {
+        LOG.info("I'm getting an order for orderId: " + orderId);
         return orderMicroservice.getOrder(orderId);
 //        LOG.info("getting order now");
 //        if (Order.count() == 0){

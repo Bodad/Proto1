@@ -45,3 +45,4 @@ SwarmPit
     To install / deploy - docker run -it --rm --name swarmpit-installer --volume /var/run/docker.sock:/var/run/docker.sock swarmpit/install:1.9
     Downloaded at workspace\Quarkus\SwarmPit as well.  Can run from there with docker stack deploy -c docker-compose.yml swarmpit
 
+    docker run -it --rm --name swarmpit-installer --volume /var/run/docker.sock:/var/run/docker.sock swarmpit/install:1.9
