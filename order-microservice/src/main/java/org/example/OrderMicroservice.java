@@ -7,6 +7,9 @@ import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.opentracing.Traced;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
@@ -31,12 +34,18 @@ public class OrderMicroservice {
     @Inject
     OrderDao orderDao;
 
-//    @Incoming("orders")
-//    public void processOrder(String orderString){
-////        Order.persistOrUpdate(order);
-//
-//        LOG.info("I am processing " + orderString);
-//    }
+    @Inject
+    @Channel("orderCreated")
+    Emitter<Order> orderCreatedEmitter;
+
+
+    @Incoming("orderRequested")
+    public void processOrder(String productName){
+        LOG.info("Received orderRequested event");
+        Order order = createNewOrder();
+        order.name = productName;
+        orderCreatedEmitter.send(order);
+    }
 
 
     @GET

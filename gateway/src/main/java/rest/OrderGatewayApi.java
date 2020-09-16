@@ -26,6 +26,12 @@ public class OrderGatewayApi {
     }
 
     @GET
+    @Path("placeOrderAsync")
+    public String placeOrderAsync(@QueryParam("productName") String productName) {
+        return orderGateway.placeOrderAsync(productName);
+    }
+
+    @GET
     @Path("getOrder")
     public Order getOrder(@QueryParam("orderId") String orderId) {
         return orderGateway.getOrder(orderId);
