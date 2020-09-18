@@ -1,17 +1,34 @@
+ARG MODULE=order-microservice
+
 ## Stage 1 : build with maven builder image with native capabilities
 FROM quay.io/quarkus/centos-quarkus-maven:20.1.0-java11 AS build
+ARG MODULE
+
 COPY pom.xml /usr/src/app/
-RUN mvn -f /usr/src/app/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
-COPY src /usr/src/app/src
+COPY common/pom.xml /usr/src/app/common/
+COPY gateway/pom.xml /usr/src/app/gateway/
+COPY order-microservice/pom.xml /usr/src/app/order-microservice/
+COPY product-microservice/pom.xml /usr/src/app/product-microservice/
+COPY dueout-microservice/pom.xml /usr/src/app/dueout-microservice/
+
+RUN mvn -f /usr/src/app/$MODULE/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
+
+COPY common/src /usr/src/app/common/src
+COPY $MODULE/src /usr/src/app/$MODULE/src
+
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+
+RUN mvn -f /usr/src/app/pom.xml -Pnative -pl $MODULE -am clean package
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal
+ARG MODULE
 WORKDIR /work/
-COPY --from=build /usr/src/app/target/*-runner /work/application
+COPY --from=build /usr/src/app/$MODULE/target/*-runner /work/application
+
+# RUN microdnf install netstat
 
 # set up permissions for user `1001`
 RUN chmod 775 /work /work/application \
