@@ -15,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class ProductMicroservice {
     @GET
     @Path("getProductByName")
     public Product getProductByName(@QueryParam("productName") String productName) {
+        if (productName.contains("Drugs")) throw new InvalidParameterException("No... you can't order drugs");
+
         Product product = productDao.find("name", productName).firstResult();
         if (product == null){
             product = new Product();
