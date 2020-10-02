@@ -1,4 +1,4 @@
-package rest;
+package Api;
 
 import Data.Product;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
 
-@Path("/")
+@Path("/microservice/product")
 @RegisterRestClient(configKey="product-microservice-api")
 @Produces("application/json")
 @Consumes("application/json")

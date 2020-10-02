@@ -1,30 +1,21 @@
 package main;
 
+import Api.IProductMicroservice;
 import Data.Product;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.opentracing.Traced;
-import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.security.InvalidParameterException;
 import java.util.List;
 
 @Traced
-@Path("/microservice/product")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class ProductMicroservice {
+public class ProductMicroservice implements IProductMicroservice {
     @Inject
     ProductDao productDao;
 
-    @GET
-    @Path("getProductByName")
-    public Product getProductByName(@QueryParam("productName") String productName) {
+    @Override
+    public Product getProductByName(String productName) {
         if (productName.contains("Drugs")) throw new InvalidParameterException("No... you can't order drugs");
 
         Product product = productDao.find("name", productName).firstResult();
@@ -36,16 +27,14 @@ public class ProductMicroservice {
         return product;
     }
 
-    @GET
-    @Path("getProduct")
-    public Product getProduct(@QueryParam("productId") String productId) {
-        return productDao.findById(new ObjectId(productId));
+    @Override
+    public Product getProduct(String productId) {
+        return productDao.findById(productId);
     }
 
-    @GET
-    @Path("getProducts")
+    @Override
     public List<Product> getProducts() {
-        return productDao.findAll().list();
+        return productDao.listAll();
     }
 
 }

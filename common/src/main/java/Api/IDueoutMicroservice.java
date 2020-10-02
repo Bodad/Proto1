@@ -1,4 +1,4 @@
-package rest;
+package Api;
 
 import Data.Dueout;
 import Data.Order;
@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
 
-@Path("/")
+@Path("/microservice/dueout")
 @RegisterRestClient(configKey="dueout-microservice-api")
 @Produces("application/json")
 public interface IDueoutMicroservice {

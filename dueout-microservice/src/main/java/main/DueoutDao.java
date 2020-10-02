@@ -1,5 +1,6 @@
 package main;
 
+import Business.MongoDao;
 import Data.Dueout;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import org.eclipse.microprofile.metrics.annotation.Counted;
@@ -12,5 +13,5 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @Traced
 @Timed
-public class DueoutDao implements PanacheMongoRepository<Dueout> {
+public class DueoutDao extends MongoDao<Dueout> {
 }

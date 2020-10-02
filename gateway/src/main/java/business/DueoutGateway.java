@@ -2,15 +2,11 @@ package business;
 
 import Data.Dueout;
 import Data.Order;
-import Data.Product;
-import org.eclipse.microprofile.metrics.annotation.Counted;
-import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
-import rest.IDueoutMicroservice;
-import rest.IProductMicroservice;
+import Api.IDueoutMicroservice;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

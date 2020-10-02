@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.List;
 
-@Path("/")
+@Path("/microservice/order")
 @RegisterRestClient(configKey="order-microservice-api")
 @Produces("application/json")
 public interface IOrderMicroservice {

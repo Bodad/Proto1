@@ -1,5 +1,6 @@
 package main;
 
+import Api.IDueoutMicroservice;
 import Data.Dueout;
 import Data.Order;
 import org.bson.types.ObjectId;
@@ -16,10 +17,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Traced
-@Path("/microservice/dueout")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class DueoutMicroservice {
+public class DueoutMicroservice implements IDueoutMicroservice {
     private static final Logger LOG = Logger.getLogger(DueoutMicroservice.class);
 
     @Inject
@@ -29,8 +27,6 @@ public class DueoutMicroservice {
     @Channel("dueoutCreated")
     Emitter<Dueout> dueoutCreatedEmitter;
 
-    @POST
-    @Path("createDueout")
     public Dueout createDueout(Order order) {
         Dueout dueout = new Dueout();
         dueout.order = order;
@@ -39,7 +35,12 @@ public class DueoutMicroservice {
         return dueout;
     }
 
-//    @Incoming("orderCreated")
+    @Override
+    public Dueout getDueout(String dueoutId) {
+        return dueoutDao.findById(dueoutId);
+    }
+
+    //    @Incoming("orderCreated")
 //    public void processOrderCreated(Order order){
 //        LOG.info("Dueout Microservice received orderCreated event");
 //        Dueout dueout = createDueout(order);
@@ -47,15 +48,8 @@ public class DueoutMicroservice {
 //    }
 //
 
-    @GET
-    @Path("getDueout")
-    public Dueout getOrder(@QueryParam("dueoutId") String dueoutId) {
-        return dueoutDao.findById(new ObjectId(dueoutId));
-    }
-
-    @GET
-    @Path("getDueouts")
+    @Override
     public List<Dueout> getDueouts() {
-        return dueoutDao.findAll().list();
+        return dueoutDao.listAll();
     }
 }
