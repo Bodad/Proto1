@@ -1,5 +1,6 @@
 package org.example;
 
+import Business.Microservice;
 import Data.Product;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.metrics.annotation.Counted;
@@ -19,10 +20,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
 @Traced
-@Timed
-
 @Path("/microservice/product")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

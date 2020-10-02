@@ -1,7 +1,10 @@
 package org.example;
 
 
+import Business.Microservice;
+import Data.Dueout;
 import Data.Order;
+import Data.Product;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Metered;
@@ -21,10 +24,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
 @Traced
-@Timed
-
 @Path("/microservice/order")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -41,10 +41,23 @@ public class OrderMicroservice {
 
     @Incoming("orderRequested")
     public void processOrder(String productName){
-        LOG.info("Received orderRequested event");
+        LOG.info("Order Microservice received orderRequested event");
         Order order = createNewOrder();
-        order.name = productName;
+        Order.LineItem lineItem = new Order.LineItem();
+        lineItem.product = new Product();
+        lineItem.product.name = productName;
+
+        order.orderLineItems.add(lineItem);
+        order.name = "Order for " + productName;
         orderCreatedEmitter.send(order);
+    }
+
+    @Incoming("dueoutCreated")
+    public void processDueoutCreated(Dueout dueout){
+        LOG.info("Order Microservice received dueoutCreated event");
+        Order order = orderDao.findById(dueout.order.id);
+        order.orderLineItems.get(0).dueout = dueout;
+        orderDao.persist(order);
     }
 
 

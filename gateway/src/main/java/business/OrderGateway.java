@@ -51,10 +51,10 @@ public class OrderGateway {
 
     @Incoming("orderCreated")
     public void processOrderCreated(Order order){
-        LOG.info("Received orderCreated event");
+        LOG.info("Order Gateway received orderCreated event");
         order.orderLineItems.add(new Order.LineItem());
         order.orderLineItems.get(0).product = productGateway.getProductByName(order.name);
-        order.orderLineItems.get(0).dueout = dueoutGateway.createDueout(order);
+//        order.orderLineItems.get(0).dueout = dueoutGateway.createDueout(order);
     }
 
     public String placeOrderAsync(String productName) {
