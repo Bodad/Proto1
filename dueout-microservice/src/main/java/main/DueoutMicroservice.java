@@ -1,12 +1,8 @@
-package org.example;
+package main;
 
-import Business.Microservice;
 import Data.Dueout;
 import Data.Order;
 import org.bson.types.ObjectId;
-import org.eclipse.microprofile.metrics.annotation.Counted;
-import org.eclipse.microprofile.metrics.annotation.Metered;
-import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
@@ -14,11 +10,9 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 
 @Traced
@@ -40,19 +34,18 @@ public class DueoutMicroservice {
     public Dueout createDueout(Order order) {
         Dueout dueout = new Dueout();
         dueout.order = order;
-        dueout.lineItem = order.orderLineItems.get(0);
-        dueout.product = order.orderLineItems.get(0).product;
+        dueout.product = order.product;
         dueoutDao.persist(dueout);
         return dueout;
     }
 
-    @Incoming("orderCreated")
-    public void processOrderCreated(Order order){
-        LOG.info("Dueout Microservice received orderCreated event");
-        Dueout dueout = createDueout(order);
-        dueoutCreatedEmitter.send(dueout);
-    }
-
+//    @Incoming("orderCreated")
+//    public void processOrderCreated(Order order){
+//        LOG.info("Dueout Microservice received orderCreated event");
+//        Dueout dueout = createDueout(order);
+//        dueoutCreatedEmitter.send(dueout);
+//    }
+//
 
     @GET
     @Path("getDueout")

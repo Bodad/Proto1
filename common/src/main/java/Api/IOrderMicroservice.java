@@ -1,5 +1,6 @@
-package rest;
+package Api;
 
+import Data.Dueout;
 import Data.Order;
 import Data.Product;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
@@ -16,10 +17,6 @@ import java.util.List;
 @Produces("application/json")
 public interface IOrderMicroservice {
 
-    @POST
-    @Path("/createOrder")
-    Order createOrder(Order order);
-
     @GET
     @Path("/getOrder")
     Order getOrder(@QueryParam("orderId") String orderId);
@@ -28,7 +25,11 @@ public interface IOrderMicroservice {
     @Path("/getOrders")
     List<Order> getOrders();
 
-    @GET
+    @POST
     @Path("/createNewOrder")
-    Order createNewOrder();
+    Order createNewOrder(Product product);
+
+    @POST
+    @Path("/recordDueOut")
+    Order recordOrderDueout(Dueout dueout);
 }

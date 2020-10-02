@@ -1,6 +1,6 @@
-package org.example;
+package main;
 
-import Data.Order;
+import Data.Dueout;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Metered;
@@ -12,5 +12,5 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @Traced
 @Timed
-public class OrderDao implements PanacheMongoRepository<Order> {
+public class DueoutDao implements PanacheMongoRepository<Dueout> {
 }

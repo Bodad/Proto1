@@ -1,4 +1,4 @@
-package org.example;
+package main;
 
 import Data.Product;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
