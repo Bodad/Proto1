@@ -5,11 +5,13 @@ import Data.Product;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.opentracing.Traced;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.security.InvalidParameterException;
 import java.util.List;
 
 @Traced
+@ApplicationScoped
 public class ProductMicroservice implements IProductMicroservice {
     @Inject
     ProductDao productDao;

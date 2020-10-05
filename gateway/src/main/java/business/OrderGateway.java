@@ -7,7 +7,6 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 import Api.IOrderMicroservice;
@@ -33,8 +32,8 @@ public class OrderGateway {
     DueoutGateway dueoutGateway;
 
     @Inject
-    @Channel("orderRequested")
-    Emitter<String> orderEmitter;
+    @Channel("orderCreated")
+    Emitter<Order> orderCreatedEmitter;
 
     public Order placeOrder(String productName) {
         LOG.info("I'm placing an order");
@@ -55,11 +54,13 @@ public class OrderGateway {
 ////        order.orderLineItems.get(0).dueout = dueoutGateway.createDueout(order);
 //    }
 //
-//    public String placeOrderAsync(String productName) {
-//        LOG.info("I'm requesting an order");
-//        orderEmitter.send(productName);
-//        return "Order requested";
-//    }
+    public Order placeOrderAsync(String productName) {
+        LOG.info("I'm requesting an order");
+        Product product = productGateway.getProductByName(productName);
+        Order order = orderMicroservice.createNewOrder(product);
+        orderCreatedEmitter.send(order);
+        return order;
+    }
 
     public Order getOrder(String orderId) {
         LOG.info("I'm getting an order for orderId: " + orderId);

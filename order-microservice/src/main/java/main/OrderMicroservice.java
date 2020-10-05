@@ -8,14 +8,17 @@ import Data.Product;
 import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
 @Traced
+@ApplicationScoped
 public class OrderMicroservice implements IOrderMicroservice {
     private static final Logger LOG = Logger.getLogger(OrderMicroservice.class);
 
@@ -40,14 +43,12 @@ public class OrderMicroservice implements IOrderMicroservice {
 //        orderCreatedEmitter.send(order);
 //    }
 //
-//    @Incoming("dueoutCreated")
-//    public void processDueoutCreated(Dueout dueout){
-//        LOG.info("Order Microservice received dueoutCreated event");
-//        Order order = orderDao.findById(dueout.order.id);
-//        order.orderLineItems.get(0).dueout = dueout;
-//        orderDao.persist(order);
-//    }
-//
+
+    @Incoming("dueoutCreated")
+    public void processDueoutCreated(Dueout dueout){
+        recordOrderDueout(dueout);
+    }
+
 
     @Override
     public Order getOrder(String orderId) {

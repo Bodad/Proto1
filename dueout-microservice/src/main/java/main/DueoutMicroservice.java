@@ -11,12 +11,14 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Traced
+@ApplicationScoped
 public class DueoutMicroservice implements IDueoutMicroservice {
     private static final Logger LOG = Logger.getLogger(DueoutMicroservice.class);
 
@@ -40,13 +42,12 @@ public class DueoutMicroservice implements IDueoutMicroservice {
         return dueoutDao.findById(dueoutId);
     }
 
-    //    @Incoming("orderCreated")
-//    public void processOrderCreated(Order order){
-//        LOG.info("Dueout Microservice received orderCreated event");
-//        Dueout dueout = createDueout(order);
-//        dueoutCreatedEmitter.send(dueout);
-//    }
-//
+    @Incoming("orderCreated")
+    public void processOrderCreated(Order order){
+        Dueout dueout = createDueout(order);
+        dueoutCreatedEmitter.send(dueout);
+    }
+
 
     @Override
     public List<Dueout> getDueouts() {
