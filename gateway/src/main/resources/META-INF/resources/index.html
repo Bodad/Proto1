@@ -145,16 +145,22 @@
         <div class="right-section">
             <h3>Next steps</h3>
             <ul>
-                <li><a href="https://quarkus.io/guides/maven-tooling.html" target="_blank">Setup your IDE</a></li>
-                <li><a href="https://quarkus.io/guides/getting-started.html" target="_blank">Getting started</a></li>
-                <li><a href="https://quarkus.io" target="_blank">Quarkus Web Site</a></li>
+                <li><a href="http://localhost:8080/gateway/order/placeOrder?productName=Test1">Place Order (for Test1)</a></li>
+                <li><a href="http://localhost:8080/gateway/order/getOrders">Get all orders</a></li>
+                <li><a href="http://localhost:8080/gateway/order/placeOrderAsync?productName=Test5">Place Order Async</a></li>
             </ul>
         </div>
         <div class="right-section">
             <h3>Rest calls...</h3>
             <ul>
-                <li><a href="http://localhost:8080/gateway/order/placeOrder?productName=Test1">Place Order (for Test1)</a></li>
-                <li><a href="http://localhost:8080/gateway/order/getOrders">Get all orders</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeCacheMethod">Execute Cached Method</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeUnCacheMethod">Un cache</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeFlakyMethod">Execute Flaky Method</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeFlakyMethod1">Execute Flaky Method with Retries</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeLongRunningMethod">Execute Long Running Method</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeLongRunningMethod1">Execute Long Running Method with Timeout</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeLongRunningMethod2">Execute Long Running Method with Fallback</a></li>
+                <li><a href="http://localhost:8080/gateway/demo/executeFlakyMethod2">Execute Flaky Method with Retries and Fallback</a></li>
             </ul>
         </div>
     </div>

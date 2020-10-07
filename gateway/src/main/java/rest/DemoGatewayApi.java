@@ -65,7 +65,7 @@ public class DemoGatewayApi {
 
     @GET
     @Path("executeFlakyMethod1")
-    @Retry(maxRetries=4)
+    @Retry(maxRetries=3)
     public String executeFlakyMethod1() {
         int i = random.nextInt(2);
         if (i == 0) throw new IllegalStateException("Sorry Charlie");
@@ -114,7 +114,7 @@ public class DemoGatewayApi {
 
     @GET
     @Path("executeFlakyMethod2")
-    @Retry(maxRetries=4)
+    @Retry(maxRetries=3)
     @Fallback(fallbackMethod = "fallbackLongRunningMethod")
     public String executeFlakyMethod2() {
         int i = random.nextInt(2);
