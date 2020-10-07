@@ -16,6 +16,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Traced
 @ApplicationScoped
@@ -29,26 +30,10 @@ public class OrderMicroservice implements IOrderMicroservice {
     @Channel("orderCreated")
     Emitter<Order> orderCreatedEmitter;
 
-
-//    @Incoming("orderRequested")
-//    public void processOrder(String productName){
-//        LOG.info("Order Microservice received orderRequested event");
-//        Order order = createNewOrder();
-//        Order.LineItem lineItem = new Order.LineItem();
-//        lineItem.product = new Product();
-//        lineItem.product.name = productName;
-//
-//        order.orderLineItems.add(lineItem);
-//        order.name = "Order for " + productName;
-//        orderCreatedEmitter.send(order);
-//    }
-//
-
     @Incoming("dueoutCreated")
     public void processDueoutCreated(Dueout dueout){
         recordOrderDueout(dueout);
     }
-
 
     @Override
     public Order getOrder(String orderId) {

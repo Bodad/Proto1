@@ -46,14 +46,6 @@ public class OrderGateway {
         return order;
     }
 
-//    @Incoming("orderCreated")
-//    public void processOrderCreated(Order order){
-//        LOG.info("Order Gateway received orderCreated event");
-//        order.orderLineItems.add(new Order.LineItem());
-//        order.orderLineItems.get(0).product = productGateway.getProductByName(order.name);
-////        order.orderLineItems.get(0).dueout = dueoutGateway.createDueout(order);
-//    }
-//
     public Order placeOrderAsync(String productName) {
         LOG.info("I'm requesting an order");
         Product product = productGateway.getProductByName(productName);
