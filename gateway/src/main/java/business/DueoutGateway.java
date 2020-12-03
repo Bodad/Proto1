@@ -22,9 +22,9 @@ public class DueoutGateway {
     @RestClient
     IDueoutMicroservice microservice;
 
-//    @Inject
-//    @Channel("products")
-//    Emitter<String> orderEmitter;
+    //    @Inject
+    //    @Channel("products")
+    //    Emitter<String> orderEmitter;
 
     public Dueout getDueout(String dueoutId) {
         LOG.info("Getting Dueout info for dueout id: " + dueoutId);

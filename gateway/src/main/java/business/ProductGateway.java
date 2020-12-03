@@ -22,8 +22,8 @@ public class ProductGateway {
     IProductMicroservice productMicroservice;
 
     //    @Inject
-//    @Channel("products")
-//    Emitter<String> orderEmitter;
+    //    @Channel("products")
+    //    Emitter<String> orderEmitter;
 
     public Product getProduct(String productId) {
         LOG.info("Getting product info for product Id: " + productId);

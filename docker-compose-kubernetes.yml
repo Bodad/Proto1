@@ -23,17 +23,17 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
 
-#  graylog:
-#    image: graylog/graylog:3.3
-#    ports:
-#      - "9000:9000"
-#      - "12201:12201/udp"
-#      - "1514:1514"
-#    environment:
-#      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
-#    depends_on:
-#      - elasticsearch
-#      - mongo
+  #  graylog:
+  #    image: graylog/graylog:3.3
+  #    ports:
+  #      - "9000:9000"
+  #      - "12201:12201/udp"
+  #      - "1514:1514"
+  #    environment:
+  #      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
+  #    depends_on:
+  #      - elasticsearch
+  #      - mongo
 
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -43,9 +43,9 @@ services:
       - "14268:14268"
 
   mongo:
-   image: mongo:4.0
-   ports:
-     - "27017:27017"
+    image: mongo:4.0
+    ports:
+      - "27017:27017"
 
   prometheus:
     image: bodad/prometheus:latest

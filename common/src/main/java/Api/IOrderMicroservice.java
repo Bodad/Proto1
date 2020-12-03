@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import java.util.List;
 
 @Path("/microservice/order")
-@RegisterRestClient(configKey="order-microservice-api")
+@RegisterRestClient(configKey = "order-microservice-api")
 @Produces("application/json")
 public interface IOrderMicroservice {
 
@@ -27,7 +27,7 @@ public interface IOrderMicroservice {
 
     @POST
     @Path("/createNewOrder")
-    Order createNewOrder(Product product);
+    Order createNewOrder(Product product, @QueryParam("Order.Type") Order.Type type);
 
     @POST
     @Path("/recordDueOut")

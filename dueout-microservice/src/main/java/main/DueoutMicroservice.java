@@ -43,7 +43,7 @@ public class DueoutMicroservice implements IDueoutMicroservice {
     }
 
     @Incoming("orderCreated")
-    public void processOrderCreated(Order order){
+    public void processOrderCreated(Order order) {
         Dueout dueout = createDueout(order);
         dueoutCreatedEmitter.send(dueout);
     }

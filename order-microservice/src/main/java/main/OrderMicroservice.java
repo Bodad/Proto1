@@ -31,7 +31,7 @@ public class OrderMicroservice implements IOrderMicroservice {
     Emitter<Order> orderCreatedEmitter;
 
     @Incoming("dueoutCreated")
-    public void processDueoutCreated(Dueout dueout){
+    public void processDueoutCreated(Dueout dueout) {
         recordOrderDueout(dueout);
     }
 
@@ -46,9 +46,10 @@ public class OrderMicroservice implements IOrderMicroservice {
     }
 
     @Override
-    public Order createNewOrder(Product product) {
+    public Order createNewOrder(Product product, Order.Type type) {
         Order order = new Order();
         order.product = product;
+        order.type = type;
         order.quantity = 1;
         order.createdDate = new Date();
         orderDao.persist(order);

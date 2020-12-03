@@ -1,0 +1,25 @@
+FROM maven:3.6.3-jdk-11
+
+COPY pom.xml /workspace/
+COPY common/pom.xml /workspace/common/
+COPY gateway/pom.xml /workspace/gateway/
+COPY order-microservice/pom.xml /workspace/order-microservice/
+COPY product-microservice/pom.xml /workspace/product-microservice/
+COPY dueout-microservice/pom.xml /workspace/dueout-microservice/
+
+
+COPY common/src /workspace/common/src
+COPY gateway/src /workspace/gateway/src
+
+WORKDIR /workspace/
+
+EXPOSE 8080 5005
+
+CMD mvn -f /workspace/pom.xml -pl gateway -am clean compile quarkus:dev -Dquarkus.live-reload.password=123
+#RUN mvn -pl gateway quarkus:dev -Dquarkus.live-reload.password=123
+#CMD ["mvn", "compile", "quarkus:dev", "-Dquarkus.live-reload.password=123"]
+
+# docker build -t gateway:dev -f gateway/src/main/docker/Dockerfile.dev .
+# docker run --rm -p 8080:8080 -it --network proto1_swarm --name gateway -v C:/Users/thomas.schaffer/.m2:/root/.m2/ gateway:dev
+
+# docker service create --network proto1_swarm --name gateway -p 8080:8080 --mount type=bind,source=C:/Users/thomas.schaffer/.m2,destination=/root/.m2/  gateway:dev

@@ -33,9 +33,9 @@ public class DemoGatewayApi {
 
     @GET
     @Path("executeLongRunningMethod")
-    public String executeLongRunningMethod() throws InterruptedException{
-            randomDelay(2000);
-            return "I ran to completion";
+    public String executeLongRunningMethod() throws InterruptedException {
+        randomDelay(2000);
+        return "I ran to completion";
     }
 
     private void randomDelay(int maxTime) throws InterruptedException {
@@ -48,24 +48,23 @@ public class DemoGatewayApi {
     public String executeCacheMethod() throws InterruptedException {
         Thread.sleep(5000);
         Date now = new Date();
-        return "I actually ran on " + now.toString();
+        return "I actually ran for real on " + now.toString();
     }
 
     @GET
     @Path("executeUnCacheMethod")
     @CacheInvalidate(cacheName = "test-cache")
-    public String executeUnCacheMethod(){
+    public String executeUnCacheMethod() {
         return "OK - I cleared cache";
     }
 
 
-
-// ---------------------------------------------------
+    // ---------------------------------------------------
 
 
     @GET
     @Path("executeFlakyMethod1")
-    @Retry(maxRetries=3)
+    @Retry(maxRetries = 2)
     public String executeFlakyMethod1() {
         int i = random.nextInt(2);
         if (i == 0) throw new IllegalStateException("Sorry Charlie");
@@ -73,25 +72,17 @@ public class DemoGatewayApi {
     }
 
 
-
-
     @GET
     @Path("executeLongRunningMethod1")
     @Timeout(1000)
-    public String executeLongRunningMethod1() throws InterruptedException{
+    public String executeLongRunningMethod1() throws InterruptedException {
         try {
             randomDelay(2000);
             return "I ran to completion";
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             return "I got interrupted";
         }
     }
-
-
-
-
-
-
 
 
     // ----------------------------------------------
@@ -101,27 +92,25 @@ public class DemoGatewayApi {
     @Path("executeLongRunningMethod2")
     @Timeout(1000)
     @Fallback(fallbackMethod = "fallbackLongRunningMethod")
-    public String executeLongRunningMethod2() throws InterruptedException{
+    public String executeLongRunningMethod2() throws InterruptedException {
         randomDelay(2000);
         return "I ran to completion";
     }
 
-    public String fallbackLongRunningMethod(){
+    public String fallbackLongRunningMethod() {
         return "Well here is something at least";
     }
 
 
-
     @GET
     @Path("executeFlakyMethod2")
-    @Retry(maxRetries=3)
+    @Retry(maxRetries = 3)
     @Fallback(fallbackMethod = "fallbackLongRunningMethod")
     public String executeFlakyMethod2() {
         int i = random.nextInt(2);
         if (i == 0) throw new IllegalStateException("Sorry Charlie");
         return "I succeeded";
     }
-
 
 
 }

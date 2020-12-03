@@ -21,14 +21,14 @@ public class OrderGatewayApi {
 
     @GET
     @Path("placeOrder")
-    public Order placeOrder(@QueryParam("productName") String productName) {
-        return orderGateway.placeOrder(productName);
+    public Order placeOrder(@QueryParam("productName") String productName, @QueryParam("order.Type") Order.Type type) {
+        return orderGateway.placeOrder(productName, type);
     }
 
     @GET
     @Path("placeOrderAsync")
-    public Order placeOrderAsync(@QueryParam("productName") String productName) {
-        return orderGateway.placeOrderAsync(productName);
+    public Order placeOrderAsync(@QueryParam("productName") String productName, @QueryParam("order.Type") Order.Type type){
+        return orderGateway.placeOrderAsync(productName, type);
     }
 
     @GET

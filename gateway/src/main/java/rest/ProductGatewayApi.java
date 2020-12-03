@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/gateway/product")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ProductGatewayApi{
+public class ProductGatewayApi {
 
     @Inject
     ProductGateway productGateway;

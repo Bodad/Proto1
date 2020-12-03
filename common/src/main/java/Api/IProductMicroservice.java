@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import java.util.List;
 
 @Path("/microservice/product")
-@RegisterRestClient(configKey="product-microservice-api")
+@RegisterRestClient(configKey = "product-microservice-api")
 @Produces("application/json")
 @Consumes("application/json")
 public interface IProductMicroservice {

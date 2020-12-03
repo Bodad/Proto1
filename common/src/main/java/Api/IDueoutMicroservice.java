@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import java.util.List;
 
 @Path("/microservice/dueout")
-@RegisterRestClient(configKey="dueout-microservice-api")
+@RegisterRestClient(configKey = "dueout-microservice-api")
 @Produces("application/json")
 public interface IDueoutMicroservice {
 

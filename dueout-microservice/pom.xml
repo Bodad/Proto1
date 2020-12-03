@@ -54,6 +54,13 @@
     </build>
     <profiles>
         <profile>
+            <id>fast</id>
+            <properties>
+                <quarkus.package.type>fast-jar</quarkus.package.type>
+            </properties>
+        </profile>
+
+        <profile>
             <id>native</id>
             <activation>
                 <property>

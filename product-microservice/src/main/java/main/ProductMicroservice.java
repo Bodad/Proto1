@@ -21,7 +21,7 @@ public class ProductMicroservice implements IProductMicroservice {
         if (productName.contains("Drugs")) throw new InvalidParameterException("No... you can't order drugs");
 
         Product product = productDao.find("name", productName).firstResult();
-        if (product == null){
+        if (product == null) {
             product = new Product();
             product.name = productName;
             productDao.persist(product);

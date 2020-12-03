@@ -6,32 +6,44 @@ networks:
 
 services:
   gateway:
-    image: gateway:jvm
+    image: gateway:fast
     deploy:
       replicas: 1
     ports:
       - "8080:8080"
+      - "5080:5005"
+    environment:
+      - JAVA_ENABLE_DEBUG="true"
 
   order-microservice:
-    image: order-microservice:jvm
+    image: order-microservice:fast
     deploy:
       replicas: 1
     ports:
       - "8081:8080"
+      - "5081:5005"
+    environment:
+      - JAVA_ENABLE_DEBUG="true"
 
   product-microservice:
-    image: product-microservice:jvm
+    image: product-microservice:fast
     deploy:
       replicas: 1
     ports:
       - "8082:8080"
+      - "5082:5005"
+    environment:
+      - JAVA_ENABLE_DEBUG="true"
 
   dueout-microservice:
-    image: dueout-microservice:jvm
+    image: dueout-microservice:fast
     deploy:
       replicas: 1
     ports:
       - "8083:8080"
+      - "5083:5005"
+    environment:
+      - JAVA_ENABLE_DEBUG="true"
 
 
 

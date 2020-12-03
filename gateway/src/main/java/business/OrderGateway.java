@@ -34,22 +34,21 @@ public class OrderGateway {
     @Inject
     @Channel("orderCreated")
     Emitter<Order> orderCreatedEmitter;
-
-    public Order placeOrder(String productName) {
+    public Order placeOrder(String productName, Order.Type type) {
         LOG.info("I'm placing an order");
 
         Product product = productGateway.getProductByName(productName);
-        Order order = orderMicroservice.createNewOrder(product);
+        Order order = orderMicroservice.createNewOrder(product, type);
         Dueout dueout = dueoutGateway.createDueout(order);
         order = orderMicroservice.recordOrderDueout(dueout);
 
         return order;
     }
 
-    public Order placeOrderAsync(String productName) {
+    public Order placeOrderAsync(String productName, Order.Type type) {
         LOG.info("I'm requesting an order");
         Product product = productGateway.getProductByName(productName);
-        Order order = orderMicroservice.createNewOrder(product);
+        Order order = orderMicroservice.createNewOrder(product, type);
         orderCreatedEmitter.send(order);
         return order;
     }
